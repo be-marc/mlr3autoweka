@@ -40,5 +40,4 @@ RoxygenNote: 7.2.3.9000
 Collate:
     'helper.R'
     'LearnerAutoWEKA.R'
-    'mlr_callbacks.R'
     'zzz.R'
