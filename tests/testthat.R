@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(mlr3automl)
+library(mlr3autoweka)
 
-test_check("mlr3automl")
+test_check("mlr3autoweka")
