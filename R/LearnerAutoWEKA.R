@@ -54,7 +54,7 @@ LearnerAutoWEKA = R6Class("LearnerAutoWEKA",
       # find packages
       learners = lrns(paste0(task_type, ".", self$learner_ids))
       learner_packages = unlist(map(learners, "packages"))
-      packages = unique(c("mlr3tuning", "mlr3learners", "mlr3pipelines", "mlr3mbo", "mlr3automl", learner_packages))
+      packages = unique(c("mlr3tuning", "mlr3learners", "mlr3pipelines", "mlr3mbo", "mlr3autoweka", learner_packages))
 
       super$initialize(
         id = id,
