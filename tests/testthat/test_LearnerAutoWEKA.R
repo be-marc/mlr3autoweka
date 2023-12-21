@@ -34,7 +34,7 @@ test_that("classification search space can be set", {
   design = generate_design_random(search_space,  1000)$data
   xss = transform_xdt_to_xss(design, search_space)
 
-  iwalk(xss, function(xs, i) {
+  walk(xss, function(xs) {
     learner$param_set$values = list()
     expect_class(learner$param_set$set_values(.values = xs), "ParamSet")
   })
@@ -54,8 +54,7 @@ test_that("regression search space can be set", {
   design = generate_design_random(search_space,  1000)$data
   xss = transform_xdt_to_xss(design, search_space)
 
-  iwalk(xss, function(xs, i) {
-    print(i)
+  walk(xss, function(xs) {
     learner$param_set$values = list()
     expect_class(learner$param_set$set_values(.values = xs), "ParamSet")
   })
