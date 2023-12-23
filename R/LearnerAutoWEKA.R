@@ -120,40 +120,40 @@ LearnerAutoWEKA = R6Class("LearnerAutoWEKA",
 
 tuning_space_common_autoweka = list(
   # Decision Table
-  DecisionTable.E     = to_tune(),
-  DecisionTable.I     = to_tune(),
-  DecisionTable.S     = to_tune(levels = c("BestFirst", "GreedyStepwise")),
-  DecisionTable.X     = to_tune(1, 4),
+  decision_table.E     = to_tune(),
+  decision_table.I     = to_tune(),
+  decision_table.S     = to_tune(levels = c("BestFirst", "GreedyStepwise")),
+  decision_table.X     = to_tune(1, 4),
 
   # KStar
-  KStar.B     = to_tune(1, 100),
-  KStar.E     = to_tune(),
-  KStar.M     = to_tune(levels = c("a", "d", "m", "n")),
+  kstar.B     = to_tune(1, 100),
+  kstar.E     = to_tune(),
+  kstar.M     = to_tune(levels = c("a", "d", "m", "n")),
 
   # SGD
-  SGD.F   = to_tune(),
-  SGD.L   = to_tune(0.00001, 0.1),
-  SGD.R   = to_tune(1e-12, 10),
-  SGD.N   = to_tune(),
-  SGD.M   = to_tune(),
+  sgd.F   = to_tune(),
+  sgd.L   = to_tune(0.00001, 0.1),
+  sgd.R   = to_tune(1e-12, 10),
+  sgd.N   = to_tune(),
+  sgd.M   = to_tune(),
 
   # MultilayerPerceptron
-  MultilayerPerceptron.L   = to_tune(0.1, 1),
-  MultilayerPerceptron.M   = to_tune(0.1, 1),
-  MultilayerPerceptron.B   = to_tune(),
-  MultilayerPerceptron.H   = to_tune(levels = c("a", "i", "o", "t")),
-  MultilayerPerceptron.C   = to_tune(),
-  MultilayerPerceptron.R   = to_tune(),
-  MultilayerPerceptron.D   = to_tune(),
-  MultilayerPerceptron.S   = to_tune(1, 1),
+  multilayer_perceptron.L   = to_tune(0.1, 1),
+  multilayer_perceptron.M   = to_tune(0.1, 1),
+  multilayer_perceptron.B   = to_tune(),
+  multilayer_perceptron.H   = to_tune(levels = c("a", "i", "o", "t")),
+  multilayer_perceptron.C   = to_tune(),
+  multilayer_perceptron.R   = to_tune(),
+  multilayer_perceptron.D   = to_tune(),
+  multilayer_perceptron.S   = to_tune(1, 1),
 
   # REPTree
-  REPTree.M   = to_tune(1, 64),
-  REPTree.V   = to_tune(1e-5, 1e-1),
+  reptree.M   = to_tune(1, 64),
+  reptree.V   = to_tune(1e-5, 1e-1),
   #FIXME: how to add both?
   #L   = to_tune(1, 1)
-  REPTree.L   = to_tune(2, 20),
-  REPTree.P   = to_tune(),
+  reptree.L   = to_tune(2, 20),
+  reptree.P   = to_tune(),
 
   # IBk
   #IBk.E   = to_tune(),
@@ -162,19 +162,19 @@ tuning_space_common_autoweka = list(
   #IBk.F   = to_tune(),
   #IBk.I   = to_tune(),
 
-  # RandomForestWEKA
-  RandomForestWEKA.I       = to_tune(2, 256),
-  RandomForestWEKA.K       = to_tune(0, 32),
-  RandomForestWEKA.depth   = to_tune(0, 20),
+  # RandomForestWeka
+  random_forest_weka.I       = to_tune(2, 256),
+  random_forest_weka.K       = to_tune(0, 32),
+  random_forest_weka.depth   = to_tune(0, 20),
 
   # RandomTree
-  RandomTree.M       = to_tune(1, 64),
+  random_tree.M       = to_tune(1, 64),
   #FIXME: K is 0 and 2-32
-  RandomTree.K       = to_tune(0, 32),
-  RandomTree.depth   = to_tune(0, 20),
+  random_tree.K       = to_tune(0, 32),
+  random_tree.depth   = to_tune(0, 20),
   #FIXME: N is 0 and 2-5
-  RandomTree.N       = to_tune(2, 5),
-  RandomTree.U       = to_tune()
+  random_tree.N       = to_tune(2, 5),
+  random_tree.U       = to_tune()
 )
 
 tuning_space_classif_autoweka = append(tuning_space_common_autoweka, list(
@@ -205,16 +205,16 @@ tuning_space_classif_autoweka = append(tuning_space_common_autoweka, list(
   PART.B     = to_tune(),
 
   # SMO
-  SMO.C       = to_tune(0.5, 1.5),
-  SMO.N       = to_tune(levels = c("0", "1", "2")),
-  SMO.M       = to_tune(),
-  SMO.K       = to_tune(levels = c("NormalizedPolyKernel", "PolyKernel", "Puk", "RBFKernel")),
-  SMO.E_poly  = to_tune(0.2, 5),
-  SMO.L_poly  = to_tune(),
+  smo.C       = to_tune(0.5, 1.5),
+  smo.N       = to_tune(levels = c("0", "1", "2")),
+  smo.M       = to_tune(),
+  smo.K       = to_tune(levels = c("NormalizedPolyKernel", "PolyKernel", "Puk", "RBFKernel")),
+  smo.E_poly  = to_tune(0.2, 5),
+  smo.L_poly  = to_tune(),
 
   # BayesNet
-  BayesNet.D   = to_tune(),
-  BayesNet.Q   = to_tune(levels = c("local.K2", "local.HillClimber", "local.LAGDHillClimber",
+  bayes_net.D   = to_tune(),
+  bayes_net.Q   = to_tune(levels = c("local.K2", "local.HillClimber", "local.LAGDHillClimber",
                                     "local.SimulatedAnnealing", "local.TabuSearch", "local.TAN")),
 
   # JRip
@@ -224,17 +224,17 @@ tuning_space_classif_autoweka = append(tuning_space_common_autoweka, list(
   JRip.O   = to_tune(1, 5),
 
   # SimpleLogistic
-  SimpleLogistic.S   = to_tune(),
-  SimpleLogistic.W   = to_tune(0, 1),
-  SimpleLogistic.A   = to_tune(),
+  simple_logistic.S   = to_tune(),
+  simple_logistic.W   = to_tune(0, 1),
+  simple_logistic.A   = to_tune(),
 
   # VotedPerceptron
-  VotedPerceptron.I   = to_tune(1, 10),
-  VotedPerceptron.M   = to_tune(5000, 50000),
-  VotedPerceptron.E   = to_tune(0.2, 5),
+  voted_perceptron.I   = to_tune(1, 10),
+  voted_perceptron.M   = to_tune(5000, 50000),
+  voted_perceptron.E   = to_tune(0.2, 5),
 
   # Logistic
-  Logistic.R = to_tune(1e-12, 10),
+  logistic.R = to_tune(1e-12, 10),
 
   # OneR
   OneR.B = to_tune(1, 32)
@@ -242,24 +242,24 @@ tuning_space_classif_autoweka = append(tuning_space_common_autoweka, list(
 
 tuning_space_regr_autoweka = append(tuning_space_common_autoweka, list(
   # Gaussian Processes
-  GaussianProcesses.L       = to_tune(0.0001, 1),
-  GaussianProcesses.N       = to_tune(levels = c("0", "1", "2")),
-  GaussianProcesses.K       = to_tune(levels = c("supportVector.NormalizedPolyKernel", "supportVector.PolyKernel",
+  gaussian_processes.L       = to_tune(0.0001, 1),
+  gaussian_processes.N       = to_tune(levels = c("0", "1", "2")),
+  gaussian_processes.K       = to_tune(levels = c("supportVector.NormalizedPolyKernel", "supportVector.PolyKernel",
                                                  "supportVector.Puk", "supportVector.RBFKernel")),
-  GaussianProcesses.E_poly  = to_tune(0.2, 5),
-  GaussianProcesses.L_poly  = to_tune(p_lgl()),
-  GaussianProcesses.S       = to_tune(1, 10),
+  gaussian_processes.E_poly  = to_tune(0.2, 5),
+  gaussian_processes.L_poly  = to_tune(p_lgl()),
+  gaussian_processes.S       = to_tune(1, 10),
 
   # M5P
-  M5P.N       = to_tune(p_lgl()),
-  M5P.M       = to_tune(1, 64),
-  M5P.U       = to_tune(p_lgl()),
-  M5P.R       = to_tune(p_lgl()),
+  m5p.N       = to_tune(p_lgl()),
+  m5p.M       = to_tune(1, 64),
+  m5p.U       = to_tune(p_lgl()),
+  m5p.R       = to_tune(p_lgl()),
 
   # LinearRegression
-  LinearRegression.S   = to_tune(levels = c("0", "1", "2")),
-  LinearRegression.C   = to_tune(p_lgl()),
-  LinearRegression.R   = to_tune(1e-7, 10),
+  linear_regression.S   = to_tune(levels = c("0", "1", "2")),
+  linear_regression.C   = to_tune(p_lgl()),
+  linear_regression.R   = to_tune(1e-7, 10),
 
   # M5Rules
   M5Rules.N   = to_tune(p_lgl()),
@@ -268,13 +268,13 @@ tuning_space_regr_autoweka = append(tuning_space_common_autoweka, list(
   M5Rules.R   = to_tune(p_lgl()),
 
   # SMOreg
-  SMOreg.C              = to_tune(0.5, 1.5),
-  SMOreg.N              = to_tune(levels = c("0", "1", "2")),
-  SMOreg.I              = to_tune(levels = c("RegSMOImproved")),
-  SMOreg.V_improved     = to_tune(p_lgl()),
-  SMOreg.K              = to_tune(levels = c("NormalizedPolyKernel", "PolyKernel", "Puk", "RBFKernel")),
-  SMOreg.E_poly         = to_tune(0.2, 5),
-  SMOreg.L_poly         = to_tune(p_lgl())
+  smo_reg.C              = to_tune(0.5, 1.5),
+  smo_reg.N              = to_tune(levels = c("0", "1", "2")),
+  smo_reg.I              = to_tune(levels = c("RegSMOImproved")),
+  smo_reg.V_improved     = to_tune(p_lgl()),
+  smo_reg.K              = to_tune(levels = c("NormalizedPolyKernel", "PolyKernel", "Puk", "RBFKernel")),
+  smo_reg.E_poly         = to_tune(0.2, 5),
+  smo_reg.L_poly         = to_tune(p_lgl())
 ))
 
 #' @title Classification Auto-WEKA Learner
@@ -304,9 +304,9 @@ LearnerClassifAutoWEKA = R6Class("LearnerClassifAutoWEKA",
       callbacks = list()
       ){
 
-      learner_ids = c("J48", "DecisionTable", "KStar", "LMT", "PART", "BayesNet", "JRip", "SimpleLogistic",
-        "VotedPerceptron", "SGD", "Logistic", "OneR", "MultilayerPerceptron", "REPTree", "RandomForestWEKA",
-        "RandomTree", "SMO") #IBk
+      learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip", "simple_logistic",
+        "voted_perceptron", "sgd", "logistic", "OneR", "multilayer_perceptron", "reptree", "random_forest_weka",
+        "random_tree", "smo") #IBk
 
       super$initialize(
         id = id,
@@ -348,9 +348,9 @@ LearnerRegrAutoWEKA = R6Class("LearnerRegrAutoWEKA",
       callbacks = list()
       ){
 
-      learner_ids = c("DecisionTable", "M5P", "KStar", "LinearRegression", "SGD",
-        "MultilayerPerceptron", "REPTree", "M5Rules", "RandomForestWEKA", "RandomTree",
-        "GaussianProcesses","SMOreg") #"IBk"
+      learner_ids = c("decision_table", "m5p", "kstar", "linear_regression", "sgd",
+        "multilayer_perceptron", "reptree", "M5Rules", "random_forest_weka", "random_tree",
+        "gaussian_processes","smo_reg") #"IBk"
 
       super$initialize(
         id = id,
