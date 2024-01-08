@@ -105,7 +105,8 @@ LearnerAutoWEKA = R6Class("LearnerAutoWEKA",
         resampling = self$resampling,
         measure = self$measure,
         terminator = self$terminator,
-        search_space = search_space
+        search_space = search_space,
+        evaluate_default = TRUE
       )
 
       auto_tuner$train(task)
@@ -132,8 +133,8 @@ tuning_space_common_autoweka = list(
 
   # SGD
   sgd.F   = to_tune(),
-  sgd.L   = to_tune(0.00001, 0.1),
-  sgd.R   = to_tune(1e-12, 10),
+  sgd.L   = to_tune(0.00001, 0.1, logscale = TRUE),
+  sgd.R   = to_tune(1e-12, 10, logscale = TRUE),
   sgd.N   = to_tune(),
   sgd.M   = to_tune(),
 
@@ -148,8 +149,8 @@ tuning_space_common_autoweka = list(
   multilayer_perceptron.S   = to_tune(1, 1),
 
   # REPTree
-  reptree.M   = to_tune(1, 64),
-  reptree.V   = to_tune(1e-5, 1e-1),
+  reptree.M   = to_tune(1, 64, logscale = TRUE),
+  reptree.V   = to_tune(1e-5, 1e-1, logscale = TRUE),
   #FIXME: how to add both?
   #L   = to_tune(1, 1)
   reptree.L   = to_tune(2, 20),
@@ -163,14 +164,15 @@ tuning_space_common_autoweka = list(
   #IBk.I   = to_tune(),
 
   # RandomForestWeka
-  random_forest_weka.I       = to_tune(2, 256),
+  random_forest_weka.I       = to_tune(2, 256, logscale = TRUE),
   random_forest_weka.K       = to_tune(0, 32),
   random_forest_weka.depth   = to_tune(0, 20),
 
   # RandomTree
-  random_tree.M       = to_tune(1, 64),
+  random_tree.M       = to_tune(1, 64, logscale = TRUE),
   #FIXME: K is 0 and 2-32
   random_tree.K       = to_tune(0, 32),
+  #FIXME: depth is 0 and 2-20
   random_tree.depth   = to_tune(0, 20),
   #FIXME: N is 0 and 2-5
   random_tree.N       = to_tune(2, 5),
@@ -185,7 +187,7 @@ tuning_space_classif_autoweka = append(tuning_space_common_autoweka, list(
   J48.J     = to_tune(),
   J48.A     = to_tune(),
   J48.S     = to_tune(),
-  J48.M     = to_tune(1, 64),
+  J48.M     = to_tune(1, 64, logscale = TRUE),
   J48.C     = to_tune(0, 1),
   J48.R     = to_tune(), # Otherwise tuning C, U and N is not possible
 
@@ -194,13 +196,13 @@ tuning_space_classif_autoweka = append(tuning_space_common_autoweka, list(
   LMT.R     = to_tune(),
   LMT.C     = to_tune(),
   LMT.P     = to_tune(),
-  LMT.M     = to_tune(1, 64),
+  LMT.M     = to_tune(1, 64, logscale = TRUE),
   LMT.W     = to_tune(0, 1),
   LMT.A     = to_tune(),
 
   # PART
   PART.N     = to_tune(2, 5),
-  PART.M     = to_tune(1, 64),
+  PART.M     = to_tune(1, 64, logscale = TRUE),
   PART.R     = to_tune(),
   PART.B     = to_tune(),
 
@@ -230,51 +232,50 @@ tuning_space_classif_autoweka = append(tuning_space_common_autoweka, list(
 
   # VotedPerceptron
   voted_perceptron.I   = to_tune(1, 10),
-  voted_perceptron.M   = to_tune(5000, 50000),
+  voted_perceptron.M   = to_tune(5000, 50000, logscale = TRUE),
   voted_perceptron.E   = to_tune(0.2, 5),
 
   # Logistic
-  logistic.R = to_tune(1e-12, 10),
+  logistic.R = to_tune(1e-12, 10, logscale = TRUE),
 
   # OneR
-  OneR.B = to_tune(1, 32)
+  OneR.B = to_tune(1, 32, logscale = TRUE)
 ))
 
 tuning_space_regr_autoweka = append(tuning_space_common_autoweka, list(
   # Gaussian Processes
-  gaussian_processes.L       = to_tune(0.0001, 1),
+  gaussian_processes.L       = to_tune(0.0001, 1, logscale = TRUE),
   gaussian_processes.N       = to_tune(levels = c("0", "1", "2")),
   gaussian_processes.K       = to_tune(levels = c("supportVector.NormalizedPolyKernel", "supportVector.PolyKernel",
                                                  "supportVector.Puk", "supportVector.RBFKernel")),
   gaussian_processes.E_poly  = to_tune(0.2, 5),
-  gaussian_processes.L_poly  = to_tune(p_lgl()),
-  gaussian_processes.S       = to_tune(1, 10),
+  gaussian_processes.L_poly  = to_tune(),
 
   # M5P
-  m5p.N       = to_tune(p_lgl()),
-  m5p.M       = to_tune(1, 64),
-  m5p.U       = to_tune(p_lgl()),
-  m5p.R       = to_tune(p_lgl()),
+  m5p.N       = to_tune(),
+  m5p.M       = to_tune(1, 64, logscale = TRUE),
+  m5p.U       = to_tune(),
+  m5p.R       = to_tune(),
 
   # LinearRegression
   linear_regression.S   = to_tune(levels = c("0", "1", "2")),
-  linear_regression.C   = to_tune(p_lgl()),
-  linear_regression.R   = to_tune(1e-7, 10),
+  linear_regression.C   = to_tune(),
+  linear_regression.R   = to_tune(1e-7, 10, logscale = TRUE),
 
   # M5Rules
-  M5Rules.N   = to_tune(p_lgl()),
-  M5Rules.M   = to_tune(1, 64),
-  M5Rules.U   = to_tune(p_lgl()),
-  M5Rules.R   = to_tune(p_lgl()),
+  M5Rules.N   = to_tune(),
+  M5Rules.M   = to_tune(1, 64, logscale = TRUE),
+  M5Rules.U   = to_tune(),
+  M5Rules.R   = to_tune(),
 
   # SMOreg
   smo_reg.C              = to_tune(0.5, 1.5),
   smo_reg.N              = to_tune(levels = c("0", "1", "2")),
   smo_reg.I              = to_tune(levels = c("RegSMOImproved")),
-  smo_reg.V_improved     = to_tune(p_lgl()),
+  smo_reg.V_improved     = to_tune(),
   smo_reg.K              = to_tune(levels = c("NormalizedPolyKernel", "PolyKernel", "Puk", "RBFKernel")),
   smo_reg.E_poly         = to_tune(0.2, 5),
-  smo_reg.L_poly         = to_tune(p_lgl())
+  smo_reg.L_poly         = to_tune()
 ))
 
 #' @title Classification Auto-WEKA Learner
