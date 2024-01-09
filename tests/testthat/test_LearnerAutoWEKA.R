@@ -1,9 +1,9 @@
 test_that("classification graph is constructed", {
   skip_on_ci()
-
-  learner_ids = c("J48", "DecisionTable", "KStar", "LMT", "PART", "SMO","BayesNet", "JRip", "SimpleLogistic",
-    "VotedPerceptron", "SGD", "Logistic", "OneR", "MultilayerPerceptron", "REPTree", "IBk", "RandomForestWEKA",
-    "RandomTree")
+  
+  learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip", "simple_logistic",
+                  "voted_perceptron", "sgd", "logistic", "OneR", "multilayer_perceptron", "reptree",
+                  "random_forest_weka", "random_tree", "smo", "IBk")
 
   graph = get_branch_pipeline("classif", learner_ids)
   expect_class(graph, "Graph")
@@ -12,9 +12,9 @@ test_that("classification graph is constructed", {
 test_that("classification search_space is constructed", {
   skip_on_ci()
 
-  learner_ids = c("J48", "DecisionTable", "KStar", "LMT", "PART", "SMO", "BayesNet", "JRip", "SimpleLogistic",
-    "VotedPerceptron", "SGD", "Logistic", "OneR", "MultilayerPerceptron", "REPTree", "IBk", "RandomForestWEKA",
-    "RandomTree")
+  learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip", "simple_logistic",
+                  "voted_perceptron", "sgd", "logistic", "OneR", "multilayer_perceptron", "reptree",
+                  "random_forest_weka", "random_tree", "smo", "IBk")
 
   search_space = get_search_space("classif", learner_ids, tuning_space_classif_autoweka)
   expect_class(search_space, "ParamSet")
@@ -23,9 +23,9 @@ test_that("classification search_space is constructed", {
 test_that("classification search space can be set", {
   skip_on_ci()
 
-  learner_ids = c("J48", "DecisionTable", "KStar", "LMT", "PART", "SMO", "BayesNet", "JRip", "SimpleLogistic",
-    "VotedPerceptron", "SGD", "Logistic", "OneR", "MultilayerPerceptron", "REPTree", "IBk", "RandomForestWEKA",
-    "RandomTree")
+  learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip", "simple_logistic",
+                  "voted_perceptron", "sgd", "logistic", "OneR", "multilayer_perceptron", "reptree",
+                  "random_forest_weka", "random_tree", "smo", "IBk")
 
   graph = get_branch_pipeline("classif", learner_ids)
   learner = as_learner(graph)
@@ -43,9 +43,9 @@ test_that("classification search space can be set", {
 test_that("regression search space can be set", {
   skip_on_ci()
 
-  learner_ids = c("DecisionTable", "M5P", "KStar", "LinearRegression", "SGD",
-    "MultilayerPerceptron", "REPTree", "IBk", "M5Rules", "RandomForestWEKA", "RandomTree",
-    "GaussianProcesses","SMOreg")
+  learner_ids = c("decision_table", "m5p", "kstar", "linear_regression", "sgd",
+                  "multilayer_perceptron", "reptree", "M5Rules", "random_forest_weka",
+                  "random_tree", "gaussian_processes","smo_reg", "IBk")
 
   graph = get_branch_pipeline("regr", learner_ids)
   learner = as_learner(graph)
