@@ -105,8 +105,7 @@ LearnerAutoWEKA = R6Class("LearnerAutoWEKA",
         resampling = self$resampling,
         measure = self$measure,
         terminator = self$terminator,
-        search_space = search_space,
-        evaluate_default = TRUE
+        search_space = search_space
       )
 
       auto_tuner$train(task)
