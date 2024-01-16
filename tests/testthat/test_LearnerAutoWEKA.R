@@ -1,23 +1,12 @@
 test_that("classification graph is constructed", {
   skip_on_ci()
-  
+
   learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip", "simple_logistic",
                   "voted_perceptron", "sgd", "logistic", "OneR", "multilayer_perceptron", "reptree",
                   "random_forest_weka", "random_tree", "smo", "IBk")
 
   graph = get_branch_pipeline("classif", learner_ids)
   expect_class(graph, "Graph")
-})
-
-test_that("classification search_space is constructed", {
-  skip_on_ci()
-
-  learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip", "simple_logistic",
-                  "voted_perceptron", "sgd", "logistic", "OneR", "multilayer_perceptron", "reptree",
-                  "random_forest_weka", "random_tree", "smo", "IBk")
-
-  search_space = get_search_space("classif", learner_ids, tuning_space_classif_autoweka)
-  expect_class(search_space, "ParamSet")
 })
 
 test_that("classification search space can be set", {
@@ -29,10 +18,9 @@ test_that("classification search space can be set", {
 
   graph = get_branch_pipeline("classif", learner_ids)
   learner = as_learner(graph)
-  search_space = get_search_space("classif", learner_ids, tuning_space_classif_autoweka)
 
-  design = generate_design_random(search_space,  1000)$data
-  xss = transform_xdt_to_xss(design, search_space)
+  design = generate_design_random(tuning_space_classif_autoweka, 10000)$data
+  xss = transform_xdt_to_xss(design, tuning_space_classif_autoweka)
 
   walk(xss, function(xs) {
     learner$param_set$values = list()
@@ -49,10 +37,9 @@ test_that("regression search space can be set", {
 
   graph = get_branch_pipeline("regr", learner_ids)
   learner = as_learner(graph)
-  search_space = get_search_space("regr", learner_ids, tuning_space_regr_autoweka)
 
-  design = generate_design_random(search_space,  1000)$data
-  xss = transform_xdt_to_xss(design, search_space)
+  design = generate_design_random(tuning_space_regr_autoweka,  10000)$data
+  xss = transform_xdt_to_xss(design, tuning_space_regr_autoweka)
 
   walk(xss, function(xs) {
     learner$param_set$values = list()
@@ -86,7 +73,7 @@ test_that("LearnerRegrAutoWEKA train works", {
   task = tsk("mtcars")
   resampling = rsmp("holdout")
   measure = msr("regr.mse")
-  terminator = trm("run_time", secs = 10)
+  terminator = trm("run_time", secs = 30)
   learner = LearnerRegrAutoWEKA$new(
     resampling = resampling,
     measure = measure,
@@ -106,7 +93,7 @@ test_that("LearnerClassifAutoWEKA resample works", {
   task = tsk("sonar")
   resampling = rsmp("holdout")
   measure = msr("classif.ce")
-  terminator = trm("run_time", secs = 10)
+  terminator = trm("run_time", secs = 30)
   learner = LearnerClassifAutoWEKA$new(
     resampling = resampling,
     measure = measure,

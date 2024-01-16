@@ -23,6 +23,8 @@ Abstract base class for Auto-WEKA like learner.
 \item{\code{learner_ids}}{(\code{character()}).}
 
 \item{\code{tuning_space}}{(list of \link{TuneToken}).}
+
+\item{\code{fallback_learner}}{(\link{Learner}).}
 }
 \if{html}{\out{</div>}}
 }
@@ -58,6 +60,7 @@ Creates a new instance of this \link[R6:R6Class]{R6} class.
   task_type,
   learner_ids,
   tuning_space,
+  fallback_learner,
   resampling,
   measure,
   terminator,
@@ -78,8 +81,11 @@ Must be an element of \link[=mlr_reflections]{mlr_reflections$task_types$type}.}
 \item{\code{learner_ids}}{(\code{character()})\cr
 List of learner ids.}
 
-\item{\code{tuning_space}}{(list of \link[paradox:to_tune]{paradox::TuneToken})\cr
-List of \link[paradox:to_tune]{paradox::TuneToken}s.}
+\item{\code{tuning_space}}{(\link[paradox:ParamSet]{paradox::ParamSet})\cr
+Tuning space of the graph learner.}
+
+\item{\code{fallback_learner}}{(\link{Learner})\cr
+Fallback learner.}
 
 \item{\code{resampling}}{(\link[mlr3:Resampling]{mlr3::Resampling}).}
 
