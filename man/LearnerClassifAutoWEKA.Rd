@@ -41,6 +41,11 @@ Creates a new instance of this \link[R6:R6Class]{R6} class.
   resampling = rsmp("cv", folds = 3),
   measure = msr("classif.ce"),
   terminator = trm("evals", n_evals = 100L),
+  learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip",
+    "simple_logistic", "voted_perceptron", "sgd", "logistic", "OneR",
+    "multilayer_perceptron", "reptree", "random_forest_weka", "random_tree", "smo",
+    "IBk"),
+  tuning_space = NULL,
   callbacks = list()
 )}\if{html}{\out{</div>}}
 }
@@ -56,6 +61,12 @@ Identifier for the new instance.}
 \item{\code{measure}}{(\link[mlr3:Measure]{mlr3::Measure}).}
 
 \item{\code{terminator}}{(\link[bbotk:Terminator]{bbotk::Terminator}).}
+
+\item{\code{learner_ids}}{(\code{character()})\cr
+List of learner ids.}
+
+\item{\code{tuning_space}}{(list of \link[paradox:to_tune]{paradox::TuneToken})\cr
+List of \link[paradox:to_tune]{paradox::TuneToken}s.}
 
 \item{\code{callbacks}}{(list of \link[mlr3tuning:CallbackTuning]{mlr3tuning::CallbackTuning}).}
 }
