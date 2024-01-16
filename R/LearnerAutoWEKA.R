@@ -286,6 +286,10 @@ tuning_space_regr_autoweka = append(tuning_space_common_autoweka, list(
 #' @param resampling ([mlr3::Resampling]).
 #' @param measure ([mlr3::Measure]).
 #' @param terminator ([bbotk::Terminator]).
+#' @param learner_ids (`character()`)\cr
+#'  List of learner ids.
+#' @param tuning_space (list of [paradox::TuneToken])\cr
+#'  List of [paradox::TuneToken]s.
 #' @param callbacks (list of [mlr3tuning::CallbackTuning]).
 #'
 #' @export
@@ -332,6 +336,10 @@ LearnerClassifAutoWEKA = R6Class("LearnerClassifAutoWEKA",
 #' @param resampling ([mlr3::Resampling]).
 #' @param measure ([mlr3::Measure]).
 #' @param terminator ([bbotk::Terminator]).
+#' @param learner_ids (`character()`)\cr
+#'  List of learner ids.
+#' @param tuning_space (list of [paradox::TuneToken])\cr
+#'  List of [paradox::TuneToken]s.
 #' @param callbacks (list of [mlr3tuning::CallbackTuning]).
 #'
 #' @export
