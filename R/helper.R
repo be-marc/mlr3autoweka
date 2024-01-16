@@ -6,32 +6,6 @@ get_branch_pipeline = function(task_type, learner_ids) {
   graph
 }
 
-get_search_space = function(task_type, learner_ids, tuning_space) {
-  # create branch
-  graph = get_branch_pipeline(task_type, learner_ids)
-  graph$param_set$set_values(branch.selection = to_tune(learner_ids))
-  graph$param_set$set_values(.values = tuning_space)
-
-  # create search space
-  search_space = graph$param_set$search_space()
- # search_space$deps = deps[id %in% search_space$ids()]
-
-  # add dependencies
-  walk(learner_ids, function(learner_id) {
-    param_ids = search_space$ids()
-    param_ids = grep(paste0("^", learner_id), param_ids, value = TRUE)
-    walk(param_ids, function(param_id) {
-      search_space$add_dep(
-        id = param_id,
-        on = "branch.selection",
-        cond = CondEqual$new(learner_id)
-      )
-    })
-  })
-
-  search_space
-}
-
 default_surrogate = function(instance = NULL, learner = NULL, n_learner = NULL, search_space = NULL, noisy = NULL) {
   assert_r6(instance, "OptimInstance", null.ok = TRUE)
   assert_r6(learner, "Learner", null.ok = TRUE)
@@ -105,17 +79,4 @@ default_surrogate = function(instance = NULL, learner = NULL, n_learner = NULL, 
     learners = replicate(n_learner, learner$clone(deep = TRUE), simplify = FALSE)
     SurrogateLearnerCollection$new(learners)
   }
-}
-
-check_tuning_space = function(tuning_space, tuning_space_autoweka, learner_ids) {
-  if (is.null(tuning_space)) {
-    tuning_space = tuning_space_autoweka[grepl(paste(learner_ids, collapse = "|"), names(tuning_space_autoweka))]
-  } else {
-    if (!all(grepl(paste(learner_ids, collapse = "|"), names(tuning_space)))) {
-      tuning_space = tuning_space[grepl(paste(learner_ids, collapse = "|"), names(tuning_space))]
-    }
-  }
-  tuning_learners = unique(gsub("\\..*", "", names(tuning_space)))
-  assert_set_equal(tuning_learners, learner_ids)
-  return(tuning_space)
 }
