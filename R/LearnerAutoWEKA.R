@@ -300,18 +300,20 @@ LearnerClassifAutoWEKA = R6Class("LearnerClassifAutoWEKA",
       resampling = rsmp("cv", folds = 3),
       measure = msr("classif.ce"),
       terminator = trm("evals", n_evals = 100L),
+      learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip", "simple_logistic",
+                      "voted_perceptron", "sgd", "logistic", "OneR", "multilayer_perceptron", "reptree", "random_forest_weka",
+                      "random_tree", "smo", "IBk"),
+      tuning_space = NULL,
       callbacks = list()
       ){
-
-      learner_ids = c("J48", "decision_table", "kstar", "LMT", "PART", "bayes_net", "JRip", "simple_logistic",
-        "voted_perceptron", "sgd", "logistic", "OneR", "multilayer_perceptron", "reptree", "random_forest_weka",
-        "random_tree", "smo", "IBk")
+      
+      tuning_space = check_tuning_space(tuning_space, tuning_space_classif_autoweka, learner_ids)
 
       super$initialize(
         id = id,
         task_type = "classif",
         learner_ids = learner_ids,
-        tuning_space = tuning_space_classif_autoweka,
+        tuning_space = tuning_space,
         resampling = resampling,
         measure = measure,
         terminator = terminator,
@@ -344,18 +346,20 @@ LearnerRegrAutoWEKA = R6Class("LearnerRegrAutoWEKA",
       resampling = rsmp("cv", folds = 3),
       measure = msr("regr.rmse"),
       terminator = trm("evals", n_evals = 100L),
+      learner_ids = c("decision_table", "m5p", "kstar", "linear_regression", "sgd",
+                      "multilayer_perceptron", "reptree", "M5Rules", "random_forest_weka", "random_tree",
+                      "gaussian_processes","smo_reg", "IBk"),
+      tuning_space = NULL,
       callbacks = list()
       ){
 
-      learner_ids = c("decision_table", "m5p", "kstar", "linear_regression", "sgd",
-        "multilayer_perceptron", "reptree", "M5Rules", "random_forest_weka", "random_tree",
-        "gaussian_processes","smo_reg", "IBk")
+      tuning_space = check_tuning_space(tuning_space, tuning_space_regr_autoweka, learner_ids)
 
       super$initialize(
         id = id,
         task_type = "regr",
         learner_ids = learner_ids,
-        tuning_space = tuning_space_regr_autoweka,
+        tuning_space = tuning_space,
         resampling = resampling,
         measure = measure,
         terminator = terminator,

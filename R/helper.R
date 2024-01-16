@@ -106,3 +106,16 @@ default_surrogate = function(instance = NULL, learner = NULL, n_learner = NULL, 
     SurrogateLearnerCollection$new(learners)
   }
 }
+
+check_tuning_space = function(tuning_space, tuning_space_autoweka, learner_ids) {
+  if (is.null(tuning_space)) {
+    tuning_space = tuning_space_autoweka[grepl(paste(learner_ids, collapse = "|"), names(tuning_space_autoweka))]
+  } else {
+    if (!all(grepl(paste(learner_ids, collapse = "|"), names(tuning_space)))) {
+      tuning_space = tuning_space[grepl(paste(learner_ids, collapse = "|"), names(tuning_space))]
+    }
+  }
+  tuning_learners = unique(gsub("\\..*", "", names(tuning_space)))
+  assert_set_equal(tuning_learners, learner_ids)
+  return(tuning_space)
+}
